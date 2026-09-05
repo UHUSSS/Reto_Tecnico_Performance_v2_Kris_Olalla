@@ -1,0 +1,31 @@
+textSummary.txt (dato de entrada del Ejercicio 2, tal como se provee en el enunciado - Figura 1)
+
+  ✗ App Transaction Balance response was OK
+    └ 97% ✓ 269891 / ✗ 6759
+
+  █ setup
+
+  ✓ checks.........................: 97.55% ✓ 269891      ✗ 6759
+    data_received..................: 842 MB 223 kB/s
+    data_sent......................: 588 MB 156 kB/s
+    failed_request.................: 2.44%  ✓ 6759        ✗ 269891
+    http_req_blocked...............: avg=10.97µs  min=0s  med=0s      max=35.02ms p(90)=0s     p(95)=0s
+    http_req_connecting............: avg=3.3µs    min=0s  med=0s      max=11.82ms p(90)=0s     p(95)=0s
+  ✓ http_req_duration..............: avg=861.68ms min=191.86ms med=613.42ms max=29.93s p(90)=1.28s p(95)=1.57s
+      { expected_response:true }...: avg=735.84ms min=244.92ms med=600.7ms  max=26.72s p(90)=1.22s p(95)=1.42s
+  ✓ http_req_failed................: 2.44%  ✓ 6759        ✗ 269891
+    http_req_receiving..............: avg=424.83µs min=0s  med=320.7µs max=39.58ms p(90)=988.4µs p(95)=1.05ms
+    http_req_sending................: avg=43.22µs  min=0s  med=0s      max=31.25ms p(90)=0s     p(95)=517µs
+    http_req_tls_handshaking........: avg=7.36µs   min=0s  med=0s      max=27.02ms p(90)=0s     p(95)=0s
+    http_req_waiting................: avg=861.21ms min=191.86ms med=613.01ms max=29.93s p(90)=1.28s p(95)=1.57s
+  ✓ http_reqs......................: 276650 73.176857/s
+    iteration_duration..............: avg=1.86s   min=0s  med=1.61s   max=30.94s p(90)=2.29s p(95)=2.57s
+  ✓ iterations......................: 276650 73.176857/s
+    vus..............................: 2   min=2   max=140
+    vus_max...........................: 140 min=140 max=140
+    y_failed_request_stage_0_HTTP5xx...: 1    0.000265/s
+    y_failed_request_stage_1_HTTP4xx...: 769  0.203409/s
+    y_failed_request_stage_1_HTTP5xx...: 5987 1.583625/s
+    y_failed_request_stage_2_HTTP5xx...: 2    0.000529/s
+
+Figura 2 (monitoreo VUs vs http_reqs): ver page3_img2.png en esta misma carpeta (extraída del PDF del reto).

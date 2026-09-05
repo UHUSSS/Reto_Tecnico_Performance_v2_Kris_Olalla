@@ -1,0 +1,13 @@
+# k6 / artefactos pesados regenerables
+ejercicio1-k6/reportes/raw-metrics.json
+
+# Enunciado original marcado como "Confidencial" por el empleador: no se publica en el repo público
+Reto_Tecnico_Performance_v2.pdf
+
+# SO / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Archivos de bloqueo temporal de Microsoft Word/Office
+~$*
