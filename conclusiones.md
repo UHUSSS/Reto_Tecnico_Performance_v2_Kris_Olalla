@@ -13,7 +13,7 @@ La prueba **cumple los tres criterios del SLA** definidos en el reto (≥20 TPS,
 | Métrica | Resultado | Criterio SLA | Cumple |
 |---|---|---|---|
 | Throughput en estado estable | **~25.0 TPS** (2,750 req en 110s) | ≥ 20 TPS | ✅ |
-| Throughput promedio de toda la corrida | 19.64–19.79 TPS (incluye rampa) | — (ver nota) | ⚠️ ver sección 3 |
+| Throughput promedio de toda la corrida | 19.64–19.79 TPS (incluye rampa) | —  | ⚠️ ver sección 3 |
 | Tasa de error (`http_req_failed`) | **0.00 %** (0 de 4,124 peticiones) | < 3 % | ✅ |
 | Tiempo de respuesta p(95) | **552 ms** | ≤ 1.5 s | ✅ |
 | Tiempo de respuesta p(99) | 659 ms | — | ✅ |

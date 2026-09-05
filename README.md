@@ -62,7 +62,7 @@ k6 version
 
 El script (`ejercicio1-k6/scripts/login-load-test.js`) hace `POST` a `https://fakestoreapi.com/auth/login` con credenciales tomadas de `data/usuarios.csv` (parametrización round-robin entre las 5 filas).
 
-Se usa el ejecutor `ramping-arrival-rate` (modelo de llegada abierto) para controlar directamente el **throughput objetivo** en vez del número de VUs — es la práctica recomendada cuando el SLA se define en TPS, ya que desacopla la tasa de peticiones de la cantidad de usuarios virtuales necesarios para sostenerla:
+Se usa el ejecutor `ramping-arrival-rate` (modelo de llegada abierto) para controlar directamente el **throughput objetivo** en vez del número de VUs , es la práctica recomendada cuando el SLA se define en TPS, ya que desacopla la tasa de peticiones de la cantidad de usuarios virtuales necesarios para sostenerla:
 
 | Etapa | Duración | Objetivo |
 |---|---|---|
@@ -75,10 +75,10 @@ Se apunta a **25 TPS** (25% por encima del mínimo de 20 TPS exigido por el SLA)
 
 ### Validaciones (checks) y thresholds (SLA)
 
-- `status` es 200 o 201 (fakestoreapi.com responde **201 Created** en login exitoso, no 200 — se valida en el ejercicio 2 el porqué de verificar esto explícitamente).
+- `status` es 200 o 201 (fakestoreapi.com responde **201 Created** en login exitoso, no 200, se valida en el ejercicio 2 el porqué de verificar esto explícitamente).
 - La respuesta contiene un `token`.
-- `http_req_duration` (tiempo de respuesta) con **p(95) < 1500 ms** — SLA: máx. 1.5s. Se usa el percentil 95 como criterio de umbral (`thresholds`) por ser el estándar de la industria para SLAs de rendimiento, ya que un `max` absoluto es extremadamente sensible a un único outlier de red; el máximo real observado igualmente se reporta en `conclusiones.md`.
-- `http_req_failed` con **rate < 3%** — SLA: tasa de error.
+- `http_req_duration` (tiempo de respuesta) con **p(95) < 1500 ms**  SLA: máx. 1.5s. Se usa el percentil 95 como criterio de umbral (`thresholds`) por ser el estándar de la industria para SLAs de rendimiento, ya que un `max` absoluto es extremadamente sensible a un único outlier de red; el máximo real observado igualmente se reporta en `conclusiones.md`.
+- `http_req_failed` con **rate < 3%**  SLA: tasa de error.
 
 ### Cómo ejecutar
 
