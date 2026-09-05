@@ -2,7 +2,7 @@
 
 **Endpoint bajo prueba:** `POST https://fakestoreapi.com/auth/login`
 **Herramienta:** k6 v2.2.0 · **Ejecutor:** `ramping-arrival-rate` (25 iter/s objetivo, 2 min de estado estable)
-**Evidencia:** [`ejercicio1-k6/reportes/textSummary.txt`](./ejercicio1-k6/reportes/textSummary.txt), [`summary.json`](./ejercicio1-k6/reportes/summary.json), [`vus_vs_tps.png`](./ejercicio1-k6/reportes/vus_vs_tps.png), [`dashboard-report.html`](./ejercicio1-k6/reportes/dashboard-report.html) (dashboard nativo de k6, ábrelo en el navegador)
+**Evidencia:** [`ejercicio1-k6/reportes/textSummary.txt`](./ejercicio1-k6/reportes/textSummary.txt), [`summary.json`](./ejercicio1-k6/reportes/summary.json), [`vus_vs_tps.png`](./ejercicio1-k6/reportes/vus_vs_tps.png), [`dashboard-report.html`](./ejercicio1-k6/reportes/dashboard-report.html)
 
 ## 1. Resumen ejecutivo
 
