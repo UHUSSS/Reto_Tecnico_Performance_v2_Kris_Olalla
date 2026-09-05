@@ -36,7 +36,6 @@ Prueba de carga sobre el servicio de login de [fakestoreapi.com](https://fakesto
 | Python | 3.13.7 (opcional)           | Generación del gráfico VUs vs TPS a partir de las métricas crudas de k6 |
 | matplotlib | 3.10.3 (opcional)           | Librería de graficación usada por el script de análisis |
 
-> El script k6 no requiere Node.js ni dependencias adicionales: k6 resuelve en tiempo de ejecución las librerías `papaparse` y `k6-summary` desde `jslib.k6.io` (requiere conexión a internet durante la ejecución).
 
 ## Instalación de k6
 
@@ -50,14 +49,6 @@ winget install -e --id GrafanaLabs.k6
 brew install k6
 ```
 
-**Linux (apt, Debian/Ubuntu):**
-```bash
-sudo gpg -k
-sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
-echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
-sudo apt-get update
-sudo apt-get install k6
-```
 
 Verificar instalación:
 ```bash
@@ -75,10 +66,10 @@ Se usa el ejecutor `ramping-arrival-rate` (modelo de llegada abierto) para contr
 
 | Etapa | Duración | Objetivo |
 |---|---|---|
-| Warm-up | 30s | 0 → 10 iter/s |
-| Ramp-up | 30s | 10 → 25 iter/s |
-| Plateau (estado estable) | 2 min | 25 iter/s sostenido |
-| Ramp-down | 30s | 25 → 0 iter/s |
+| Calentamiento | 30s | 0 → 10 iter/s |
+| Rampa de subida | 30s | 10 → 25 iter/s |
+| Estado estable | 2 min | 25 iter/s sostenido |
+| Rampa de bajada | 30s | 25 → 0 iter/s |
 
 Se apunta a **25 TPS** (25% por encima del mínimo de 20 TPS exigido por el SLA) para dejar margen de seguridad frente a la variabilidad de una API pública de terceros.
 
@@ -88,8 +79,6 @@ Se apunta a **25 TPS** (25% por encima del mínimo de 20 TPS exigido por el SLA)
 - La respuesta contiene un `token`.
 - `http_req_duration` (tiempo de respuesta) con **p(95) < 1500 ms** — SLA: máx. 1.5s. Se usa el percentil 95 como criterio de umbral (`thresholds`) por ser el estándar de la industria para SLAs de rendimiento, ya que un `max` absoluto es extremadamente sensible a un único outlier de red; el máximo real observado igualmente se reporta en `conclusiones.md`.
 - `http_req_failed` con **rate < 3%** — SLA: tasa de error.
-
-Si algún threshold falla, k6 finaliza con exit code ≠ 0 (útil para integrarlo en un pipeline de CI/CD).
 
 ### Cómo ejecutar
 
@@ -104,7 +93,7 @@ Variables de entorno opcionales:
 # Cambiar el host de destino
 k6 run -e BASE_URL=https://fakestoreapi.com scripts/login-load-test.js
 
-# Cambiar el TPS objetivo del plateau (por defecto 25)
+# Cambiar el TPS objetivo del estado estable (por defecto 25)
 k6 run -e TARGET_TPS=30 scripts/login-load-test.js
 ```
 
@@ -112,16 +101,6 @@ Al finalizar, el script escribe automáticamente (vía `handleSummary`):
 - `reportes/textSummary.txt`
 - `reportes/summary.json`
 
-**Dashboard nativo de k6 (gráficos sin dependencias externas):**
-k6 incluye un dashboard web con gráficos en tiempo real de VUs, TPS, latencias y errores. Para generarlo como reporte HTML estático:
-
-```bash
-K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT=reportes/dashboard-report.html k6 run scripts/login-load-test.js
-```
-
-(En PowerShell: `$env:K6_WEB_DASHBOARD="true"; $env:K6_WEB_DASHBOARD_EXPORT="reportes/dashboard-report.html"; k6 run scripts/login-load-test.js`)
-
-Esto genera `reportes/dashboard-report.html`, ya incluido en el repositorio — ábrelo directamente en el navegador.
 
 > `reportes/vus_vs_tps.png` y `.csv` se generaron post-proceso a partir de la salida `--out json` de k6 para poder correlacionar VUs con TPS a lo largo del tiempo y anotar explícitamente la línea de SLA (20 TPS) y la ventana de estado estable — algo que el dashboard nativo no expone directamente. Para regenerarlos: `k6 run --out json=reportes/raw-metrics.json scripts/login-load-test.js` y luego procesar ese NDJSON agrupando por segundo los puntos de las métricas `http_reqs` y `vus`.
 

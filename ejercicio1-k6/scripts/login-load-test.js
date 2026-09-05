@@ -37,10 +37,10 @@ export const options = {
       preAllocatedVUs: 60,
       maxVUs: 200,
       stages: [
-        { target: Math.round(TARGET_TPS * 0.4), duration: '30s' }, // warm-up
-        { target: TARGET_TPS, duration: '30s' },                   // ramp-up hasta el objetivo (>=20 TPS)
-        { target: TARGET_TPS, duration: '2m' },                    // plateau: sostiene el TPS objetivo
-        { target: 0, duration: '30s' },                            // ramp-down
+        { target: Math.round(TARGET_TPS * 0.4), duration: '30s' }, // calentamiento
+        { target: TARGET_TPS, duration: '30s' },                   // rampa de subida hasta el objetivo (>=20 TPS)
+        { target: TARGET_TPS, duration: '2m' },                    // estado estable: sostiene el TPS objetivo
+        { target: 0, duration: '30s' },                            // rampa de bajada
       ],
     },
   },
